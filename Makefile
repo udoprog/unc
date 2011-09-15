@@ -8,7 +8,8 @@ DATA_SOURCES+=gen/unccase.cpp
 OBJECTS=$(SOURCES:.cpp=.o)
 DATA_OBJECTS=$(DATA_SOURCES:.cpp=.o)
 
-TOOLS=python tools.py
+PYTHON=/usr/bin/env python --
+TOOLS=${PYTHON} tools.py
 SPECS=$(wildcard specs/*.TXT)
 NAMESPACE="unc"
 
