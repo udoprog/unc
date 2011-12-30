@@ -6,16 +6,23 @@
 #
 import sys
 
-def unicodedata(args):
-  if len(args) != 5:
-    return 1
+# populate to add runnable command
+commands = dict()
 
-  datafile = args[0]
-  src      = args[1];
-  hdr      = args[2];
-  inc      = args[3]
-  ns       = args[4]
+def tool(**kw):
+  def tdec(f):
+    global commands
+    def dec(args):
+      if f.__code__.co_argcount != len(args):
+        print >>sys.stderr, "expected %d arguments"%(f.__code__.co_argcount)
+        return 1
+      return f(*args)
+    commands[kw.get("name", f.func_name)] = dec
+    return dec
+  return tdec
 
+@tool(name="unicodedata")
+def unicodedata(datafile, src, hdr, inc, ns):
   src_fp=open(src, 'w')
   hdr_fp=open(hdr, 'w')
 
@@ -85,7 +92,8 @@ def unicodedata(args):
 
   return 0
 
-def specs(args):
+@tool(name="specs")
+def specs(src, hdr, inc, ns):
   files = {
     'iso8859_1': "specs/8859-1.TXT",
     'iso8859_2': "specs/8859-2.TXT",
@@ -103,14 +111,6 @@ def specs(args):
     'iso8859_15': "specs/8859-15.TXT",
     'iso8859_16': "specs/8859-16.TXT"
   };
-
-  if len(args) != 4:
-    return 1
-
-  src=args[0]
-  hdr=args[1]
-  inc=args[2]
-  ns=args[3]
 
   src_fp=open(src, 'w')
   hdr_fp=open(hdr, 'w')
@@ -195,14 +195,26 @@ def specs(args):
   print >>hdr_fp, "#endif /*__ISO_8859__*/"
   return 0
 
+@tool()
+def gentestdata(path):
+  fp = open(path, 'w')
+
+  try:
+    for i in xrange(0,0x11000):
+      fp.write(unichr(i).encode("utf-8"))
+  finally:
+    fp.close()
+
+  return 0
+
 if __name__ == "__main__":
   if len(sys.argv) < 2:
     sys.exit(1);
 
-  cmd = sys.argv[1]
-  if cmd == "specs":
-    sys.exit(specs(sys.argv[2:]))
-  elif cmd == "unicodedata":
-    sys.exit(unicodedata(sys.argv[2:]))
+  cmd = commands.get(sys.argv[1], None)
 
-  sys.exit(1)
+  if cmd is None:
+    print "no such tool:", sys.argv[1]
+    sys.exit(1)
+
+  sys.exit(cmd(sys.argv[2:]))

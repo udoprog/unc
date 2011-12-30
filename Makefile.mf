@@ -63,8 +63,16 @@ install:
 	${M4} ${M4FLAGS} < pkgconfig/unc.pc.m4 > ${PKGCONFIG}/unc.pc
 	-ln -fs ${PKGCONFIG}/unc.pc /usr/lib/pkgconfig/unc.pc
 
-tests: all
-	sh tests.sh test ${CXX} -Wall -I./src -L./lib
+test/%:
+	${CXX} $@.cpp -lboost_test_exec_monitor -I./src $(shell cat $@.flags) -o $@
+	$@
+
+TESTS+=test/iso_test
+TESTS+=test/performance_test
+TESTS+=test/utf8_test
+
+all-tests: ${TESTS}
+	${RM} ${TESTS}
 
 unicodedata:
 	${TOOLS} unicodedata specs/UnicodeData.txt
