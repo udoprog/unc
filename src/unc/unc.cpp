@@ -1,6 +1,6 @@
-#include "unc.hpp"
-#include "iso8859.hpp"
-#include "unccase.hpp"
+#include <unc/unc.hpp>
+#include <unc/iso8859.hpp>
+#include <unc/unccase.hpp>
 
 #define CHECK_CODEPOINTS(state, data, size, limit) \
   do {                                             \
