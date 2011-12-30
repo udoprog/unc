@@ -66,7 +66,8 @@ namespace unc {
   template<>
   struct encoding_trait<utf8> {
     static void decode(std::string&, ustring&);
-    static void encode(ustring&,     std::string&);
+    static void encode(ustring&, std::string&);
+    static void encode_codepoint(codepoint_t&, std::string&);
     static int  compare(std::string&, std::string&);
   };
 
@@ -189,6 +190,11 @@ namespace unc {
   template<encoding E>
   void encode(ustring& s, std::string& t) {
     encoding_trait<E>::encode(s, t);
+  };
+
+  template<encoding E>
+  void encode_codepoint(codepoint_t& codepoint, std::string& t) {
+    encoding_trait<E>::encode_codepoint(codepoint, t);
   };
 
   template<encoding E>

@@ -254,6 +254,21 @@ reject:
     }
   }
 
+  void encoding_trait<utf8>::encode_codepoint(codepoint_t& codepoint, std::string& target)
+  {
+    utf8_fixed_state state;
+
+    utf8_fixed_encode(state, codepoint);
+
+    if (!state.valid) {
+      return;
+    }
+
+    for (size_t i = 0; i < state.forward; i++) {
+      target.push_back(state.info.buffer[i]);
+    }
+  }
+
   int encoding_trait<utf8>::compare(std::string& a, std::string& b)
   {
     const uint8_t* data_a = (uint8_t*)a.data();
