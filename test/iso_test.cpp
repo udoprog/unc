@@ -1,4 +1,4 @@
-#include "unc.hpp"
+#include <unc/unc.hpp>
 #define BOOST_TEST_MODULE Utf8Tests
 #include <boost/test/unit_test.hpp>
 
