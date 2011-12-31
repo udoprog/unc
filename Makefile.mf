@@ -1,6 +1,6 @@
 VERSION=1.0
 
-SOURCES+=src/unc.cpp
+SOURCES+=src/unc/unc.cpp
 
 DATA_SOURCES+=gen/unc/iso8859.cpp
 DATA_SOURCES+=gen/unc/unccase.cpp
@@ -55,7 +55,7 @@ install:
 	mkdir -p ${PKGCONFIG}
 	cp gen/unc/iso8859.hpp ${INCLUDE}/unc/iso8859.hpp
 	cp gen/unc/unccase.hpp ${INCLUDE}/unc/unccase.hpp
-	cp src/unc.hpp ${INCLUDE}/unc/unc.hpp
+	cp src/unc/unc.hpp ${INCLUDE}/unc/unc.hpp
 	cp lib/libunc.a ${LIBRARY}/libunc.a.${VERSION}
 	cp lib/libuncdata.a ${LIBRARY}/libuncdata.a.${VERSION}
 	ln -fs ${LIBRARY}/libunc.a.${VERSION} ${LIBRARY}/libunc.a

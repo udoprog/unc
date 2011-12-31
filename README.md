@@ -41,10 +41,15 @@ around 300K (compared to many megabytes for ICU).
 But beware that ICU in contrast to unc is fully featured, and has been tested
 a lot more.
 
-Build/Install
+Build/Install (Using makefile)
 =============
+    #> make -f Makefile.mf clean all
+    #> sudo make -f Makefile.mf install
+
+Build (Using CMake)
+=============
+    #> cmake
     #> make
-    #> sudo make install
 
 How to link the library
 =======================

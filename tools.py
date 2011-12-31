@@ -23,6 +23,9 @@ def tool(**kw):
 
 @tool(name="unicodedata")
 def unicodedata(datafile, src, hdr, inc, ns):
+  prepare_dirs(src)
+  prepare_dirs(hdr)
+
   src_fp=open(src, 'w')
   hdr_fp=open(hdr, 'w')
 
@@ -92,6 +95,12 @@ def unicodedata(datafile, src, hdr, inc, ns):
 
   return 0
 
+def prepare_dirs(path):
+  import os
+  dn = os.path.dirname(path)
+  if not os.path.isdir(dn):
+    os.makedirs(dn)
+
 @tool(name="specs")
 def specs(src, hdr, inc, ns):
   files = {
@@ -111,6 +120,9 @@ def specs(src, hdr, inc, ns):
     'iso8859_15': "specs/8859-15.TXT",
     'iso8859_16': "specs/8859-16.TXT"
   };
+
+  prepare_dirs(src)
+  prepare_dirs(hdr)
 
   src_fp=open(src, 'w')
   hdr_fp=open(hdr, 'w')
