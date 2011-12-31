@@ -9,7 +9,7 @@ of purposes.
 Currently the following operations are supported.
 
  - UTF-8 encoding/decoding (thoroughly tested);
- - ISO-8859-X encoding/decoding (not so thorougly tested);
+ - ISO-8859 encoding/decoding (not so as thoroughly tested);
  - Non-localized string compare (compare by codepoint);
  - Non-localized uppercase/lowercase operations.
 
@@ -38,8 +38,7 @@ Usage
 If this is all you need, you are welcome to use UNC, it will only introduce
 around 300K (compared to many megabytes for ICU).
 
-But beware that ICU in contrast to unc is fully featured, and has been tested
-a lot more.
+Just be aware that UNC is far from a drop in replacement for ICU.
 
 Build/Install (Using makefile)
 =============
@@ -76,3 +75,5 @@ Currently, the following databases are generated.
 
  - ISO-8859 mapping in gen/iso8869.cpp;
  - Case code mapping in gen/unccase.cpp (for uppercase/lowercase).
+
+They are both stored in the uncdata library ready for linking.
