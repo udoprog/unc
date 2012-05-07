@@ -16,23 +16,24 @@ namespace unc {
   const static codepoint_t INVALID_CODEPOINT = 0xffffffff;
 
   typedef enum encoding_t {
-    codepoints,
-    utf8,
-    iso8859_1,
-    iso8859_2,
-    iso8859_3,
-    iso8859_4,
-    iso8859_5,
-    iso8859_6,
-    iso8859_7,
-    iso8859_8,
-    iso8859_9,
-    iso8859_10,
-    iso8859_11,
-    iso8859_13,
-    iso8859_14,
-    iso8859_15,
-    iso8859_16
+    codepoints = 0,
+    utf8 = 1,
+    iso8859_1 = 2,
+    latin1 = 2,
+    iso8859_2 = 3,
+    iso8859_3 = 4,
+    iso8859_4 = 5,
+    iso8859_5 = 6,
+    iso8859_6 = 7,
+    iso8859_7 = 8,
+    iso8859_8 = 9,
+    iso8859_9 = 10,
+    iso8859_10 = 11,
+    iso8859_11 = 12,
+    iso8859_13 = 13,
+    iso8859_14 = 14,
+    iso8859_15 = 15,
+    iso8859_16 = 16
   } encoding;
 
   struct utf8_fixed_state {
@@ -177,7 +178,7 @@ namespace unc {
   template<encoding E>
   void decode(std::string s, ustring& t) {
     encoding_trait<E>::decode(s, t);
-  };
+  }
 
   template<encoding E>
   std::string encode(ustring& s)
@@ -190,20 +191,20 @@ namespace unc {
   template<encoding E>
   void encode(ustring& s, std::string& t) {
     encoding_trait<E>::encode(s, t);
-  };
+  }
 
   template<encoding E>
   void encode_codepoint(codepoint_t& codepoint, std::string& t) {
     encoding_trait<E>::encode_codepoint(codepoint, t);
-  };
+  }
 
   template<encoding E>
   int compare(std::string& a, std::string& b) {
     return encoding_trait<E>::compare(a, b);
-  };
+  }
 
   ustring lowercase(ustring&);
   ustring uppercase(ustring&);
-};
+}
 
 #endif /* __NONSTD_HPP__ */
